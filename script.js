@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (paresEncontrados === cartas.length/2) {
           //llamar a funcion de mostrar victoria
           console.log("pares encontrados : ", paresEncontrados);
+          mostrarVictoria();
         }
 
       } else {
@@ -80,6 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     tablero.appendChild(carta); // se agregan las caras al tablero
   });
+
+  function mostrarVictoria (){
+    document.getElementById("textoVictoria").textContent = `Ganaste en ${intentos} intentos!`; //personalización
+    document.getElementById("modalVictoria").style.display = "block";  // al ganar cambia el display a block y el modal es visible
+  };
+
+//cierra el modal, fuera de la función de apertura
+  document.getElementById("cerrarModal").addEventListener("click", function() {
+    document.getElementById("modalVictoria").style.display = "none";
+  });
+
+
 });
 
 // Mejoras a realizar
