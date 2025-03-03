@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tablero = document.getElementById("tablero");
   const intentosSpan = document.getElementById("intentos");
-  let intentos = 0;
+  let intentos = 0; //contador de intentos
+  let paresEncontrados = 0; //contador de pares
   //imágenes para las cartas con íconos, array
   const imagenes = ["🐱", "🐶", "🦊", "🐰", "🐹", "🐸", "🐵", "🐺"];
 
@@ -51,7 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
         segundaCarta = null;
         bloqueoTablero = false; // se habilita le tablero
         //se quedan volteadas
-        // si agrego aquí los intentos, me cuenta cada vez que un par es encontrado.
+
+        // contador de pares encontrados:
+        paresEncontrados++; //esta variable no se muestra al usuario (todavía), no tiene innerhtml o span
+        console.log("pares encontrados : ", paresEncontrados);
+
+        //vericación de victoria:
+        if (paresEncontrados === cartas.length/2) {
+          //llamar a funcion de mostrar victoria
+          console.log("pares encontrados : ", paresEncontrados);
+        }
+
       } else {
         //Si no coinciden
         setTimeout(() => {
@@ -71,10 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 // Mejoras a realizar
 // 1 implementar nuevas funcionalidades
 //  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar. Con efectos de celebración.
+
 //  - Entrega de estrellas o puntaje según el desempeño del jugador.
 //  - Botón de reinicio para empezar una nueva partida sin recargar la página.
 //  - Opcionalidad de cronómetro, activable con un botón:
