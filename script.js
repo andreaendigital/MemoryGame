@@ -70,3 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
     tablero.appendChild(carta); // se agregan las caras al tablero
   });
 });
+
+
+// Mejoras a realizar
+// 1 implementar nuevas funcionalidades
+//  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar. Con efectos de celebración.
+//  - Entrega de estrellas o puntaje según el desempeño del jugador.
+//  - Botón de reinicio para empezar una nueva partida sin recargar la página.
+//  - Opcionalidad de cronómetro, activable con un botón:
+//  - Si está activado, el tiempo influye en la cantidad de puntos o estrellas obtenidas.
+//  - Si está desactivado, el jugador puede jugar sin presión de tiempo.
+//  - Efectos visuales y de sonido para hacer el juego más atractivo (animaciones al voltear cartas, sonido al hacer match, etc.).
+//  - Transición suave al ganar en lugar de solo reiniciar el tablero abruptamente.
+//  - Mejoras en la interfaz para hacerla más atractiva y clara (botones más visibles, colores llamativos, animaciones sutiles).
+// 2 revisar la estructura, elementos bien organizado y css
+// 3 elementos graficos y detalles visuales
+// 4 optimizar
