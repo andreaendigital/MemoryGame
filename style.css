@@ -1,0 +1,54 @@
+body{
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.contenedor-cartas {
+    display: flex;
+    justify-content: center;
+    background-color: blueviolet;
+}
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: orange;
+}
+.carta {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative; /* Para que las caras se posicionen dentro */
+    transform-style: preserve-3d; /* Mantiene el efecto 3D */
+    transition: transform 0.5s;
+}
+
+
+.cara {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la cara trasera cuando no se muestra, hace que solo una cara sea visible a la vez. */
+}
+
+/* La cara trasera (donde está el emoji) */
+.trasera {
+    background-color: #61dafb;
+    transform: rotateY(180deg); /* La giramos 180° para que INICIE oculta */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Cuando la carta está volteada, se gira */
+.carta.volteada {
+    transform: rotateY(180deg);
+    
+}
