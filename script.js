@@ -88,6 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
         //llamar a funcion de mostrar victoria
         console.log("pares encontrados : ", paresEncontrados);
         console.log("bloqueoTablero : ", bloqueoTablero);
+        intentos++; //contabiliza el último intento al encontrar el último par
+        console.log("intentos antes de llamar a mostrarVictoria", intentos);
         mostrarVictoria();
       }
     } else {
@@ -100,10 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
         segundaCarta = null;
         bloqueoTablero = false;
       }, 1000);
+
+      intentos++; //contabiliza un intento cada dos cartas volteadas
+      console.log("intentos antes de llamar a mostrarVictoria linea 107", intentos);
+
     }
-    //si agrego acá los intentos, contabiliza un intentao cada dos cartas volteadas
-    intentos++;
-    intentosSpan.textContent = intentos;
+    
+    intentosSpan.textContent = intentos; //muestra los intentos 
+    console.log("intentos contabilizados", intentos); 
   }
 
   function barajarCartas() {
@@ -164,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
+console.log("intentos antes de calcular estrellas:", intentos);
     let tiempoSegundos = 0;
     // ⭐ Calculamos las estrellas
     const estrellas = calcularEstrellas(
@@ -176,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Mostrar las estrellas
     const estrellasDiv = document.getElementById("resultadosEstrellas");
     estrellasDiv.innerHTML =
-      "☆🌟".repeat(estrellas) + "☆".repeat(3 - estrellas);
+      "🌟".repeat(estrellas) + "☆".repeat(3 - estrellas);
 
     //Mensaje condicional según variables
     if (modoCronometro==true) {
