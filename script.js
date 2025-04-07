@@ -247,7 +247,7 @@ function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
 // 3 elementos graficos y detalles visuales
 // 4 optimizar
 
-// agregar al modal el tiempo que se demoró y la cantidad de pares encontrados
-// por corregir, el reinicio debe volver a cero el cronometro
-//Falta función en que se detiene el cronometro
-// cronometro debe ser igual a tiempo que indica que gana, ahora indica dos tiempos distinto
+//ok -  agregar al modal el tiempo que se demoró y la cantidad de pares encontrados
+//ok -  por corregir, el reinicio debe volver a cero el cronometro
+//ok - Falta función en que se detiene el cronometro
+//ok -  cronometro debe ser igual a tiempo que indica que gana, ahora indica dos tiempos distinto
