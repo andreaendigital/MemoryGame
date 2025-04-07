@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       carta.addEventListener("click", () => clickCarta(carta));
 
       tablero.appendChild(carta);
+      console.log("Modo cronómetro:", modoCronometro);
     });
   }
 
@@ -46,13 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //  tablero.innerHTML = ""; //Limpia el tablero antes de agregar cartas nuevas
     //     cartas.sort(() => Math.random() - 0.5); //reordena elementos del array con aleatoriedad
 
-    modoCronometro = document.getElementById("activarTiempo").click;
-
-    if (modoCronometro) {
-      //Si es verdadero, es decir, si está activo...
-      tiempoInicio = Date.now(); // Reiniciamos el inicio
-      console.log("Nuevo inicio de cronómetro:", tiempoInicio);
-    }
   }
 
   function clickCarta(carta) {
@@ -175,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
   let estrellas = 0;
 
-  if (!modoCronometro) {
+  if (modoCronometro==false) {
     //sin modo cronometro, solo evaluar intentos
     if (intentos <= 7) estrellas = 3;
     else if (intentos <= 14) estrellas = 2;
@@ -194,6 +188,7 @@ function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
 function tiempo() {
   const ahora = Date.now();
   const tiempoTranscurrido = Math.floor((ahora - tiempoInicio) / 1000);
+  
   // document.getElementById("cronometroVisible").textContent = `Tiempo: ${tiempoTranscurrido} s`;
   const cronometroElemento = document.getElementById("cronometroVisible");
 
@@ -207,11 +202,12 @@ document.getElementById("activarTiempo").addEventListener("click", function () {
   tiempoInicio = Date.now();
 
   // Detener si ya hay un intervalo corriendo (reinicio)
-//  clearInterval(intervaloCronometro);
+  //  clearInterval(intervaloCronometro);
 
   // Aquí se activa el cronómetro ⏱️ que llama a actualizarCronometro() cada 1000ms
   intervaloCronometro = setInterval(tiempo, 1000);
-  console.log("Modo cronómetro activado:", intervaloCronometro);
+  console.log("IntervaloCronometro:", intervaloCronometro);
+  console.log("Modo cronómetro:", modoCronometro);
 });
 
 // Mejoras a realizar
@@ -233,4 +229,4 @@ document.getElementById("activarTiempo").addEventListener("click", function () {
 // agregar al modal el tiempo que se demoró y la cantidad de pares encontrados
 // por corregir, el reinicio debe volver a cero el cronometro
 //Falta función en que se detiene el cronometro
-// cronometro debe ser igual a tiempo que indica que gana, ahora indica dos tiempos distinto 
+// cronometro debe ser igual a tiempo que indica que gana, ahora indica dos tiempos distinto
