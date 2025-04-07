@@ -220,8 +220,8 @@ document.getElementById("activarTiempo").addEventListener("click", function () {
 // ok Con efectos de celebración. confetti y sonido!
 //  - Entrega de estrellas o puntaje según el desempeño del jugador.
 //  ok  - Botón de reinicio para empezar una nueva partida sin recargar la página. -> función de reinicio partida
-//  - Opcionalidad de cronómetro, activable con un botón:
-//  - Si está activado, el tiempo influye en la cantidad de puntos o estrellas obtenidas.
+//  ok - Opcionalidad de cronómetro, activable con un botón:
+//  ok - Si está activado, el tiempo influye en la cantidad de puntos o estrellas obtenidas.
 //  - Si está desactivado, el jugador puede jugar sin presión de tiempo.
 //  - Efectos visuales y de sonido para hacer el juego más atractivo (animaciones al voltear cartas, sonido al hacer match, etc.).
 //  - Transición suave al ganar en lugar de solo reiniciar el tablero abruptamente.
@@ -231,3 +231,6 @@ document.getElementById("activarTiempo").addEventListener("click", function () {
 // 4 optimizar
 
 // agregar al modal el tiempo que se demoró y la cantidad de pares encontrados
+// por corregir, el reinicio debe volver a cero el cronometro
+//Falta función en que se detiene el cronometro
+// cronometro debe ser igual a tiempo que indica que gana, ahora indica dos tiempos distinto 
