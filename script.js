@@ -104,10 +104,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function mostrarVictoria() {
-    document.getElementById(
-      "textoVictoria"
-    ).textContent = `Ganaste en ${intentos} intentos!`; //personalización
+    document.getElementById("textoVictoria").textContent = `Ganaste en ${intentos} intentos!`; //personalización
     document.getElementById("modalVictoria").style.display = "block"; // al ganar cambia el display a block y el modal es visible
+    
+      // 🎵 Reproducir sonido de victoria
+      const sonidoVictoria = new Audio("assets/sounds/spin.mp3");
+      sonidoVictoria.play();
+    
+    
+    // 🎉 Lluvia de confetti
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.6 },
+    });
   }
 
   //cierra el modal, fuera de la función de apertura
@@ -125,10 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Mejoras a realizar
 // 1 implementar nuevas funcionalidades
-//  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar. Con efectos de celebración.
-
+//  ok  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar. 
+// Con efectos de celebración.
 //  - Entrega de estrellas o puntaje según el desempeño del jugador.
-//  - Botón de reinicio para empezar una nueva partida sin recargar la página. -> función de reinicio partida
+//  ok  - Botón de reinicio para empezar una nueva partida sin recargar la página. -> función de reinicio partida
 //  - Opcionalidad de cronómetro, activable con un botón:
 //  - Si está activado, el tiempo influye en la cantidad de puntos o estrellas obtenidas.
 //  - Si está desactivado, el jugador puede jugar sin presión de tiempo.
