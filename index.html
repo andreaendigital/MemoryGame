@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="assets/favicon.ico" />
     <title>Juego de Memoria</title>
     <link rel="stylesheet" href="style.css" />
     <!-- vinculo al css -->
@@ -21,24 +22,24 @@
       <!-- The Modal -->
       <div id="modalVictoria" class="modal">
         <!-- Modal content -->
-        <div class="modal-contenido"> <!--Caja donde va el contenido del modal.-->
-          <h2>GANASTE</h2>  
+        <div class="modal-contenido">
+          <!--Caja donde va el contenido del modal.-->
+          <h2>GANASTE</h2>
           <p id="textoVictoria">TEXTO DINAMICO</p>
+          <div id="resultadosEstrellas"></div>
           <button id="cerrarModal">Cerrar</button>
         </div>
       </div>
-    
     </main>
     <footer>
       <p>Intentos: <span id="intentos">0</span></p>
+      <p id="cronometroVisible">Tiempo: 0s</p>
       <button id="reiniciar">Nueva Partida</button>
+      <button id="activarTiempo">Iniciar Cronómetro</button>
       <script src="script.js"></script>
     </footer>
 
-<!-- 🎉 Confetti JS -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-
-
+    <!-- 🎉 Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   </body>
 </html>

@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let modoCronometro = false;
+  let tiempoInicio = 0;
+  let tiempoActual = 0;
+  let tiempoFinal = 0;
+  let intervaloCronometro = 0;
   const tablero = document.getElementById("tablero");
   const intentosSpan = document.getElementById("intentos");
   var intentos = 0; //contador de intentos
@@ -40,6 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
     barajarCartas();
     //  tablero.innerHTML = ""; //Limpia el tablero antes de agregar cartas nuevas
     //     cartas.sort(() => Math.random() - 0.5); //reordena elementos del array con aleatoriedad
+
+    modoCronometro = document.getElementById("activarTiempo").click;
+
+    if (modoCronometro) {
+      //Si es verdadero, es decir, si está activo...
+      tiempoInicio = Date.now(); // Reiniciamos el inicio
+      console.log("Nuevo inicio de cronómetro:", tiempoInicio);
+    }
   }
 
   function clickCarta(carta) {
@@ -104,20 +117,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function mostrarVictoria() {
-    document.getElementById("textoVictoria").textContent = `Ganaste en ${intentos} intentos!`; //personalización
-    document.getElementById("modalVictoria").style.display = "block"; // al ganar cambia el display a block y el modal es visible
-    
-      // 🎵 Reproducir sonido de victoria
-      const sonidoVictoria = new Audio("assets/sounds/spin.mp3");
-      sonidoVictoria.play();
-    
-    
+    //document.getElementById("textoVictoria").textContent = `Ganaste en ${intentos} intentos!`; //personalización
+
+    // 🎵 Reproducir sonido de victoria
+    const sonidoVictoria = new Audio("assets/sounds/spin.mp3");
+    sonidoVictoria.play();
+
     // 🎉 Lluvia de confetti
     confetti({
       particleCount: 200,
       spread: 100,
       origin: { y: 0.6 },
     });
+
+    //condicional de modoCronometro
+    let tiempoSegundos = 0;
+
+    if (modoCronometro) {
+      tiempoFinal = Date.now();
+      tiempoSegundos = Math.floor((tiempoFinal - tiempoInicio) / 1000);
+    }
+
+    // ⭐ Calculamos las estrellas según si hay o no cronómetro
+    const estrellas = calcularEstrellas(
+      intentos,
+      tiempoSegundos,
+      modoCronometro
+    );
+
+    //Mostrar las estrellas
+    const estrellasDiv = document.getElementById("resultadosEstrellas");
+    estrellasDiv.innerHTML =
+      "☆🌟".repeat(estrellas) + "☆".repeat(3 - estrellas);
+
+    const mensaje = modoCronometro
+      ? `Ganaste en ${intentos} intentos y ${tiempoSegundos} segundos!`
+      : `Ganaste en ${intentos} intentos!`;
+    document.getElementById("textoVictoria").textContent = mensaje;
+
+    document.getElementById("modalVictoria").style.display = "block"; // al ganar cambia el display a block y el modal es visible
   }
 
   //cierra el modal, fuera de la función de apertura
@@ -133,10 +171,53 @@ document.addEventListener("DOMContentLoaded", () => {
   iniciarJuego();
 });
 
+//Calcular puntaje según variables, devuelve cantidad de estrellas
+function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
+  let estrellas = 0;
+
+  if (!modoCronometro) {
+    //sin modo cronometro, solo evaluar intentos
+    if (intentos <= 7) estrellas = 3;
+    else if (intentos <= 14) estrellas = 2;
+    else estrellas = 1;
+  } else {
+    //con cronometro activado, evaluar intentos + tiempo
+    if (intentos <= 12 && tiempoSegundos <= 60) estrellas = 3;
+    else if (intentos <= 16 && tiempoSegundos <= 90) estrellas = 2;
+    else estrellas = 1;
+  }
+
+  return estrellas;
+}
+
+//actualizamos tiempo visible
+function tiempo() {
+  const ahora = Date.now();
+  const tiempoTranscurrido = Math.floor((ahora - tiempoInicio) / 1000);
+  // document.getElementById("cronometroVisible").textContent = `Tiempo: ${tiempoTranscurrido} s`;
+  const cronometroElemento = document.getElementById("cronometroVisible");
+
+  if (cronometroElemento) {
+    cronometroElemento.textContent = `Tiempo: ${tiempoTranscurrido}s`;
+  }
+}
+
+document.getElementById("activarTiempo").addEventListener("click", function () {
+  modoCronometro = true;
+  tiempoInicio = Date.now();
+
+  // Detener si ya hay un intervalo corriendo (reinicio)
+//  clearInterval(intervaloCronometro);
+
+  // Aquí se activa el cronómetro ⏱️ que llama a actualizarCronometro() cada 1000ms
+  intervaloCronometro = setInterval(tiempo, 1000);
+  console.log("Modo cronómetro activado:", intervaloCronometro);
+});
+
 // Mejoras a realizar
 // 1 implementar nuevas funcionalidades
-//  ok  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar. 
-// Con efectos de celebración.
+//  ok  - Pop-up de victoria con texto dinámico que muestre el número de intentos al ganar.
+// ok Con efectos de celebración. confetti y sonido!
 //  - Entrega de estrellas o puntaje según el desempeño del jugador.
 //  ok  - Botón de reinicio para empezar una nueva partida sin recargar la página. -> función de reinicio partida
 //  - Opcionalidad de cronómetro, activable con un botón:
