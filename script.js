@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       carta.addEventListener("click", () => clickCarta(carta));
 
       tablero.appendChild(carta);
-      console.log("Modo cronómetro:", modoCronometro);
+  
     });
   }
 
@@ -44,6 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
     segundaCarta = null;
     intentosSpan.textContent = intentos;
     barajarCartas();
+    //detenemos cronometro
+    clearInterval(intervaloCronometro); // 💥 Aquí detenemos el cronómetro
+    document.getElementById("cronometroVisible").textContent = "00:00";
+    modoCronometro = false;
+  
+    console.log("Modo cronómetro:", modoCronometro);
     //  tablero.innerHTML = ""; //Limpia el tablero antes de agregar cartas nuevas
     //     cartas.sort(() => Math.random() - 0.5); //reordena elementos del array con aleatoriedad
   }
@@ -112,14 +118,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("activarTiempo")
     .addEventListener("click", function () {
-      modoCronometro = true;
-      tiempoInicio = Date.now();
-
       // Detener si ya hay un intervalo corriendo (reinicio)
       //  clearInterval(intervaloCronometro);
 
       // Aquí se activa el cronómetro ⏱️ que llama a actualizarCronometro() cada 1000ms
-      intervaloCronometro = setInterval(tiempo, 1000);
+      //Sólo se activa si está limpia la partida para iniciar, es decir, si intentos = 0
+      if (intentos == 0){
+        modoCronometro = true;
+        tiempoInicio = Date.now();
+        intervaloCronometro = setInterval(tiempo, 1000);
+      } else {
+        alert("Reinicia el juego para iniciar el cronómetro")
+        modoCronometro = false;
+      }
+      
       console.log("IntervaloCronometro:", intervaloCronometro);
       console.log("Modo cronómetro:", modoCronometro);
     });
@@ -151,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
       origin: { y: 0.6 },
     });
 
+
+
     let tiempoSegundos = 0;
     // ⭐ Calculamos las estrellas
     const estrellas = calcularEstrellas(
@@ -167,6 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //Mensaje condicional según variables
     if (modoCronometro==true) {
       tiempoFinal = Date.now();
+      clearInterval(intervaloCronometro); // 💥 Aquí detenemos el cronómetro
+      
+
       tiempoSegundos = Math.floor((tiempoFinal - tiempoInicio) / 1000);
       mensaje = `Ganaste en ${intentos} intentos y ${tiempoSegundos} segundos!`;
     } else {
