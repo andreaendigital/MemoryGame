@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     barajarCartas();
     //  tablero.innerHTML = ""; //Limpia el tablero antes de agregar cartas nuevas
     //     cartas.sort(() => Math.random() - 0.5); //reordena elementos del array con aleatoriedad
-
   }
 
   function clickCarta(carta) {
@@ -110,6 +109,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  document
+    .getElementById("activarTiempo")
+    .addEventListener("click", function () {
+      modoCronometro = true;
+      tiempoInicio = Date.now();
+
+      // Detener si ya hay un intervalo corriendo (reinicio)
+      //  clearInterval(intervaloCronometro);
+
+      // Aquí se activa el cronómetro ⏱️ que llama a actualizarCronometro() cada 1000ms
+      intervaloCronometro = setInterval(tiempo, 1000);
+      console.log("IntervaloCronometro:", intervaloCronometro);
+      console.log("Modo cronómetro:", modoCronometro);
+    });
+
+  //actualizamos tiempo visible
+  function tiempo() {
+    const ahora = Date.now();
+    const tiempoTranscurrido = Math.floor((ahora - tiempoInicio) / 1000);
+
+    // document.getElementById("cronometroVisible").textContent = `Tiempo: ${tiempoTranscurrido} s`;
+    const cronometroElemento = document.getElementById("cronometroVisible");
+
+    if (cronometroElemento) {
+      cronometroElemento.textContent = `Tiempo: ${tiempoTranscurrido}s`;
+    }
+  }
+
   function mostrarVictoria() {
     //document.getElementById("textoVictoria").textContent = `Ganaste en ${intentos} intentos!`; //personalización
 
@@ -124,15 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
       origin: { y: 0.6 },
     });
 
-    //condicional de modoCronometro
     let tiempoSegundos = 0;
-
-    if (modoCronometro) {
-      tiempoFinal = Date.now();
-      tiempoSegundos = Math.floor((tiempoFinal - tiempoInicio) / 1000);
-    }
-
-    // ⭐ Calculamos las estrellas según si hay o no cronómetro
+    // ⭐ Calculamos las estrellas
     const estrellas = calcularEstrellas(
       intentos,
       tiempoSegundos,
@@ -144,9 +164,19 @@ document.addEventListener("DOMContentLoaded", () => {
     estrellasDiv.innerHTML =
       "☆🌟".repeat(estrellas) + "☆".repeat(3 - estrellas);
 
-    const mensaje = modoCronometro
-      ? `Ganaste en ${intentos} intentos y ${tiempoSegundos} segundos!`
-      : `Ganaste en ${intentos} intentos!`;
+    //Mensaje condicional según variables
+    if (modoCronometro==true) {
+      tiempoFinal = Date.now();
+      tiempoSegundos = Math.floor((tiempoFinal - tiempoInicio) / 1000);
+      mensaje = `Ganaste en ${intentos} intentos y ${tiempoSegundos} segundos!`;
+    } else {
+      mensaje = `Ganaste en ${intentos} intentos!`;
+    }
+
+    // const mensaje = modoCronometro
+    //   ? `Ganaste en ${intentos} intentos y ${tiempoSegundos} segundos!`
+    //   : `Ganaste en ${intentos} intentos!`;
+
     document.getElementById("textoVictoria").textContent = mensaje;
 
     document.getElementById("modalVictoria").style.display = "block"; // al ganar cambia el display a block y el modal es visible
@@ -169,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
   let estrellas = 0;
 
-  if (modoCronometro==false) {
+  if (modoCronometro == false) {
     //sin modo cronometro, solo evaluar intentos
     if (intentos <= 7) estrellas = 3;
     else if (intentos <= 14) estrellas = 2;
@@ -183,32 +213,6 @@ function calcularEstrellas(intentos, tiempoSegundos, modoCronometro) {
 
   return estrellas;
 }
-
-//actualizamos tiempo visible
-function tiempo() {
-  const ahora = Date.now();
-  const tiempoTranscurrido = Math.floor((ahora - tiempoInicio) / 1000);
-  
-  // document.getElementById("cronometroVisible").textContent = `Tiempo: ${tiempoTranscurrido} s`;
-  const cronometroElemento = document.getElementById("cronometroVisible");
-
-  if (cronometroElemento) {
-    cronometroElemento.textContent = `Tiempo: ${tiempoTranscurrido}s`;
-  }
-}
-
-document.getElementById("activarTiempo").addEventListener("click", function () {
-  modoCronometro = true;
-  tiempoInicio = Date.now();
-
-  // Detener si ya hay un intervalo corriendo (reinicio)
-  //  clearInterval(intervaloCronometro);
-
-  // Aquí se activa el cronómetro ⏱️ que llama a actualizarCronometro() cada 1000ms
-  intervaloCronometro = setInterval(tiempo, 1000);
-  console.log("IntervaloCronometro:", intervaloCronometro);
-  console.log("Modo cronómetro:", modoCronometro);
-});
 
 // Mejoras a realizar
 // 1 implementar nuevas funcionalidades
